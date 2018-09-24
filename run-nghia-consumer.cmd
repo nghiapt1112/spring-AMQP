@@ -1,0 +1,1 @@
+gradle nghia-consumer:build -x test && java -jar build/nghia_libs/nghia-consumer-0.0.1.jar

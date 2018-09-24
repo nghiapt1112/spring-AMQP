@@ -1,0 +1,5 @@
+rootProject.name = 'nghia-root-multiproject'
+
+include 'nghia-producer'
+include 'nghia-consumer'
+include 'nghia-user-consumer'
