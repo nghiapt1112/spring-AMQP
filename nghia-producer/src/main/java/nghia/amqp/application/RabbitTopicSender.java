@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 
 @RestController
 @RequestMapping("/sendEvent")
-public class Sender {
+public class RabbitTopicSender {
 
     private final Logger LOGGER = LoggerFactory.getLogger(getClass());
     private final String[] keys = {"quick.orange.rabbit", "lazy.orange.elephant", "quick.orange.fox",

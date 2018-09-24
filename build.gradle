@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        springBootVersion = '2.0.3.RELEASE'
+        springBootVersion = '2.0.4.RELEASE'
     }
     repositories {
         mavenCentral()
@@ -11,7 +11,7 @@ buildscript {
     }
 }
 
-allprojects {
+subprojects {
     apply plugin: 'java'
     apply plugin: 'idea'
     apply plugin: 'org.springframework.boot'
@@ -27,11 +27,8 @@ allprojects {
 //    if (!it.name.startsWith('Android')) {
 //        apply plugin: 'java'
 //    }
-}
 
 
-
-subprojects {
     configurations.compile {
 //    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
         exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
@@ -65,8 +62,16 @@ project(':nghia-consumer') {
 
 }
 project(':nghia-producer') {
-
+    dependencies {
+        compile('org.springframework.boot:spring-boot-starter-activemq')
+    }
 }
+project(':nghia-activemq-consumer') {
+    dependencies {
+        compile('org.springframework.boot:spring-boot-starter-activemq')
+    }
+}
+
 
 project(':nghia-user-consumer') {
     dependencies {
