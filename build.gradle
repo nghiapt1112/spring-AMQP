@@ -29,19 +29,19 @@ subprojects {
 //    }
 
 
-    configurations.compile {
-//    exclude group: 'org.springframework.boot', module: 'spring-boot-starter-tomcat'
-        exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
-        exclude group: 'org.springframework.boot', module: 'logback-classic'
+    configurations {
+        providedRuntime
+        compile.exclude group: 'org.springframework.boot', module: "spring-boot-starter-tomcat"
+        compile.exclude group: 'org.springframework.boot', module: 'spring-boot-starter-logging'
+        compile.exclude group: 'org.springframework.boot', module: 'logback-classic'
+        compile.exclude module: 'spring-boot-starter-data-mongodb'
     }
 
-
     dependencies {
-        compile ('org.springframework.boot:spring-boot-starter-amqp')
-        compile ('org.springframework.cloud:spring-cloud-commons:2.0.1.RELEASE')
-        compile ("com.nghia.tut.utils:nghia-libraries:1.0") {
-            exclude module: 'spring-boot-starter-data-mongodb'
-        }
+        compile('org.springframework.boot:spring-boot-starter-undertow')
+        compile('org.springframework.boot:spring-boot-starter-amqp')
+        compile('org.springframework.cloud:spring-cloud-commons:2.0.1.RELEASE')
+        compile("com.nghia.tut.utils:nghia-libraries:1.0")
 
         compile('org.springframework.boot:spring-boot-starter-log4j2')
         compile('org.springframework.boot:spring-boot-starter-mail')
@@ -69,6 +69,7 @@ project(':nghia-producer') {
 project(':nghia-activemq-consumer') {
     dependencies {
         compile('org.springframework.boot:spring-boot-starter-activemq')
+        compile project(':nghia-producer')
     }
 }
 

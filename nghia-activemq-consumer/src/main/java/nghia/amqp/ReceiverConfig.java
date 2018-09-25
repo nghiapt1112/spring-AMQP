@@ -1,34 +1,46 @@
 package nghia.amqp;
 
-import org.apache.activemq.ActiveMQConnectionFactory;
-import org.springframework.beans.factory.annotation.Value;
+import nghia.amqp.exception.DefaultErrorHandler;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jms.annotation.EnableJms;
+import org.springframework.jms.annotation.JmsListenerConfigurer;
 import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
+import org.springframework.jms.config.JmsListenerEndpointRegistrar;
+import org.springframework.jms.support.converter.MappingJackson2MessageConverter;
+import org.springframework.jms.support.converter.MessageConverter;
+import org.springframework.jms.support.converter.MessageType;
+
+import javax.jms.ConnectionFactory;
 
 @Configuration
 @EnableJms
-public class ReceiverConfig {
+public class ReceiverConfig implements JmsListenerConfigurer {
+    @Autowired
+    private ConnectionFactory connectionFactory;
 
-    @Value("${spring.activemq.broker-url:nghia.tool:61616}")
-    private String brokerUrl;
-
-    @Bean
-    public ActiveMQConnectionFactory activeMQConnectionFactory() {
-        ActiveMQConnectionFactory activeMQConnectionFactory = new ActiveMQConnectionFactory();
-        activeMQConnectionFactory.setBrokerURL(brokerUrl);
-
-        return activeMQConnectionFactory;
+    @Override
+    public void configureJmsListeners(JmsListenerEndpointRegistrar registrar) {
+        registrar.setContainerFactory(jmsListenerContainerFactory());
     }
 
     @Bean
     public DefaultJmsListenerContainerFactory jmsListenerContainerFactory() {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
-        factory.setConnectionFactory(activeMQConnectionFactory());
-        factory.setConcurrency("3-10");
-
+        factory.setConnectionFactory(connectionFactory);
+        factory.setErrorHandler(new DefaultErrorHandler());
+        factory.setMessageConverter(messageConverter());
+//        factory.setConcurrency("3-10");
         return factory;
+    }
+
+    @Bean
+    public MessageConverter messageConverter() {
+        MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
+        converter.setTargetType(MessageType.TEXT);
+//        converter.setTypeIdPropertyName("_type");
+        return converter;
     }
 
 }

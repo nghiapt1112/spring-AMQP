@@ -18,10 +18,4 @@ public class RabbitConfig {
         return new TopicExchange("tut.user.topic");
     }
 
-    @Bean
-    public RabbitTopicSender sender() {
-        return new RabbitTopicSender();
-    }
-
-
 }
