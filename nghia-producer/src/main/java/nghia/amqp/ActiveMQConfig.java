@@ -43,8 +43,8 @@ public class ActiveMQConfig {
     @Bean
     public MessageConverter converter() {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
-        converter.setTargetType(MessageType.TEXT);
-//        converter.setTypeIdPropertyName("_type");
+        converter.setTargetType(MessageType.BYTES);
+        converter.setTypeIdPropertyName("_type");
         return converter;
     }
 

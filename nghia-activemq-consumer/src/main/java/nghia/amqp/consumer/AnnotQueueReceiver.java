@@ -38,11 +38,15 @@ public class AnnotQueueReceiver {
     }
 
     @JmsListener(destination = "helloworld.q")
-    public void receive2(Message<Object> message) {
+    public void receive2(Message<User> message) {
         LOGGER.info("Received message: {}", message);
 
         MessageHeaders header = message.getHeaders();
         Object payload = message.getPayload();
+
+        User user = (User) payload;
+
+        LOGGER.info("User receive from queue: {}", user);
         throw  new QueueException("Listener couldn't handle this message");
     }
 }

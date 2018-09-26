@@ -31,6 +31,7 @@ public class ReceiverConfig implements JmsListenerConfigurer {
         factory.setConnectionFactory(connectionFactory);
         factory.setErrorHandler(new DefaultErrorHandler());
         factory.setMessageConverter(messageConverter());
+        factory.setSessionTransacted(true);
 //        factory.setConcurrency("3-10");
         return factory;
     }
@@ -38,8 +39,8 @@ public class ReceiverConfig implements JmsListenerConfigurer {
     @Bean
     public MessageConverter messageConverter() {
         MappingJackson2MessageConverter converter = new MappingJackson2MessageConverter();
-        converter.setTargetType(MessageType.TEXT);
-//        converter.setTypeIdPropertyName("_type");
+        converter.setTargetType(MessageType.BYTES);
+        converter.setTypeIdPropertyName("_type");
         return converter;
     }
 
