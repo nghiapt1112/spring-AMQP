@@ -58,26 +58,33 @@ subprojects {
 
 }
 
-project(':nghia-consumer') {
+project(':ng_consumer') {
 
 }
-project(':nghia-producer') {
-    dependencies {
-        compile('org.springframework.boot:spring-boot-starter-activemq')
-    }
-}
-project(':nghia-activemq-consumer') {
-    dependencies {
-        compile('org.springframework.boot:spring-boot-starter-activemq')
-        compile project(':nghia-producer')
-    }
+project(':ng_rabbit_producer') {
+//    dependencies {
+//        compile('org.springframework.boot:spring-boot-starter-activemq')
+//    }
 }
 
 
-project(':nghia-user-consumer') {
+project(':ng_user_consumer') {
     dependencies {
         compile ("org.apache.commons:commons-lang3:3.7")
         compile ("commons-io:commons-io:2.6")
     }
 
+}
+project(':ng_activemq_producer') {
+    dependencies {
+        compile('org.springframework.boot:spring-boot-starter-activemq')
+//        compile project(':nghia-producer')
+    }
+}
+
+project(':ng_activemq_consumer') {
+    dependencies {
+        compile('org.springframework.boot:spring-boot-starter-activemq')
+        compile project(':ng_activemq_producer')
+    }
 }

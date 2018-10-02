@@ -1,0 +1,7 @@
+server.port: 45120
+
+spring:
+  rabbitmq:
+    addresses: nghia.tool
+    port: 5672
+    virtual-host: nghia.stream.local

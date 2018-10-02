@@ -1,6 +1,15 @@
 rootProject.name = 'nghia-root-multiproject'
 
-include 'nghia-producer'
-include 'nghia-consumer'
-include 'nghia-activemq-consumer'
-include 'nghia-user-consumer'
+include 'rabbitmq/nghia-producer'
+include 'rabbitmq/nghia-consumer'
+include 'rabbitmq/nghia-user-consumer'
+include 'activemq/nghia-activemq-consumer'
+include 'activemq/nghia-activemq-producer'
+
+
+project(':rabbitmq/nghia-producer').name= 'ng_rabbit_producer'
+project(':rabbitmq/nghia-consumer').name= 'ng_consumer'
+project(':rabbitmq/nghia-user-consumer').name= 'ng_user_consumer'
+
+project(':activemq/nghia-activemq-consumer').name= 'ng_activemq_consumer'
+project(':activemq/nghia-activemq-producer').name= 'ng_activemq_producer'
