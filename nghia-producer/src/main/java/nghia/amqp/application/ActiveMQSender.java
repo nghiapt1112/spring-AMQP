@@ -36,7 +36,7 @@ public class ActiveMQSender {
                     User message = User.testUser();
 //                    String message = "Hello Spring JMS ActiveMQ!";
                     LOGGER.info("sending message='{}' to destination='{}'", message, destination);
-                    jmsTemplate.convertAndSend("helloworld.q", message);
+                    jmsTemplate.convertAndSend("helloworld.q", message).;
                     LOGGER.info(" [x] Sent '" + message + "'" + el);
                 });
 
